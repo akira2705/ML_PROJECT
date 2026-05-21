@@ -515,6 +515,7 @@ async def scrape_product(raw_url: str) -> dict:
     return {
         "combined_text":      combined,
         "reviews":            reviews,
+        "individual_texts":   deduped,
         "image_url":          image_url,
         "star_rating":        star_rating,
         "individual_ratings": individual_ratings,
@@ -547,10 +548,15 @@ async def analysis_generator(url: str):
             "imageUrl":    scraped["image_url"],
         })
 
-        # Step 3 — inference
+        # Step 3 — inference (per-review then averaged)
         yield sse({"step":"inference","status":"running"})
-        text_for_model = scraped["reviews"] or scraped["combined_text"]
-        viability, regret = run_inference(text_for_model)
+        individual_texts = scraped.get("individual_texts") or []
+        if individual_texts:
+            scores = [run_inference(t) for t in individual_texts[:40]]
+            viability = float(np.mean([s[0] for s in scores]))
+            regret    = float(np.mean([s[1] for s in scores]))
+        else:
+            viability, regret = run_inference(scraped["reviews"] or scraped["combined_text"])
         yield sse({"step":"inference","status":"done",
                    "viability_score":viability,"regret_score":regret})
 
