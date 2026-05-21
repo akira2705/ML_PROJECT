@@ -1,7 +1,7 @@
 # Purchase Decision Engine (PDE)
 **An AI-Powered Amazon Product Recommendation System**
 
-🚀 **Live Demo:** [https://ml-project-abua7u0og-shivaathmajan-9882s-projects.vercel.app](https://ml-project-abua7u0og-shivaathmajan-9882s-projects.vercel.app)
+🚀 **Live Demo:** [[https://ml-project-wine.vercel.app](https://ml-project-wine.vercel.app)]
 
 ---
 
