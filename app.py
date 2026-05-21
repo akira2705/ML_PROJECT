@@ -546,7 +546,7 @@ except Exception as exc:
 def analyze_review_sentiment(reviews_text):
     text = (reviews_text or "").lower()
     if not text:
-        return 0.5, 0.0, 0, 0, 0
+        return 0.5, 0.0, 0.0, 0, 0, 0
 
     positive_terms = [
         "good", "great", "excellent", "amazing", "awesome", "best", "worth",

@@ -50,7 +50,7 @@ def main():
     df.columns = ["label", "title", "review"]
     df["viability_label"] = df["label"].map({1: 0, 2: 1})
     df["regret_label"] = 1 - df["viability_label"]
-    df["text"] = df["title"].astype(str) + " " + df["review"].astype(str)
+    df["text"] = df["title"].fillna("").astype(str) + " " + df["review"].fillna("").astype(str)
 
     if args.max_rows > 0 and len(df) > args.max_rows:
         df = df.sample(n=args.max_rows, random_state=42).reset_index(drop=True)
